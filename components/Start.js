@@ -140,6 +140,7 @@ const Start = ({ navigation }) => {
     <ImageBackground source={image} style={styles.image}>
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.appTitle}>LetsChat</Text>
+
         <View style={styles.box1}>
           <View style={styles.yourContainer}>
             <Icon

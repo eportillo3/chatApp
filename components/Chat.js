@@ -1,15 +1,93 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Bubble, GiftedChat } from "react-native-gifted-chat";
 
-const Chat = (props) => {
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: `${props.route.params.backColor}`,
-    },
-  });
+import {
+  View,
+  Text,
+  Button,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 
-  return <View style={styles.container}></View>;
-};
+export default class Chat extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      messages: [
+        {
+          _id: 1,
+          text: "Hello developer",
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: "React Native",
+            avatar: "https://placeimg.com/140/140/any",
+          },
+        },
+      ],
+    };
+  }
 
-export default Chat;
+  componentDidMount() {
+    let userJoinedMessage = `User ${this.props.route.params.name} has joined the chat.`;
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: "Hello developer",
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: "React Native",
+            avatar: "https://placeimg.com/140/140/any",
+          },
+        },
+        {
+          _id: 2,
+          text: userJoinedMessage,
+          createdAt: new Date(),
+          system: true,
+        },
+      ],
+    });
+  }
+
+  onSend(messages = []) {
+    this.setState((previousState) => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }));
+  }
+
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: "#000",
+          },
+        }}
+      />
+    );
+  }
+
+  render() {
+    // let name = this.props.route.params.name;
+    // this.props.navigation.setOptions({ title: name });
+    return (
+      <View style={{ flex: 1 }}>
+        <GiftedChat
+          renderBubble={this.renderBubble.bind(this)}
+          messages={this.state.messages}
+          onSend={(messages) => this.onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+        />
+        {Platform.OS === "android" ? (
+          <KeyboardAvoidingView behavior="height" />
+        ) : null}
+      </View>
+    );
+  }
+}
