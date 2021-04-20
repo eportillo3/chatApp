@@ -38,7 +38,6 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
-    // let userJoinedMessage = `User ${this.props.route.params.name} has joined the chat.`;
     // Check user connection
     NetInfo.fetch().then((connection) => {
       if (connection.isConnected) {
@@ -198,7 +197,7 @@ export default class Chat extends React.Component {
               : "No internet connection"
           }
           maxInputLength={this.state.isConnected ? 1000 : 0}
-          renderInputToolbar={this.renderInputToolbar}
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
           onSend={(messages) => this.onSend(messages)}
           user={this.state.user}
