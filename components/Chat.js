@@ -22,6 +22,11 @@ export default class Chat extends React.Component {
     super();
     this.state = {
       messages: [],
+      user: {
+        _id: "",
+        name: "React Native",
+        avatar: "https://placeimg.com/140/140/any",
+      },
     };
 
     //Connects to firebase
@@ -99,7 +104,11 @@ export default class Chat extends React.Component {
             }
 
             this.setState({
-              uid: user.uid,
+              user: {
+                _id: 1,
+                name: "React Native",
+                avatar: "https://placeimg.com/140/140/any",
+              },
               messages: [],
             });
 
