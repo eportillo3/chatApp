@@ -5,14 +5,7 @@ import NetInfo from "@react-native-community/netinfo";
 import CustomActions from "./CustomActions";
 import MapView from "react-native-maps";
 
-import {
-  View,
-  Text,
-  Button,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import { color } from "react-native-reanimated";
+import { View, Platform, KeyboardAvoidingView } from "react-native";
 
 const firebase = require("firebase");
 require("firebase/firestore");
@@ -230,7 +223,9 @@ export default class Chat extends React.Component {
     // let name = this.props.route.params.name;
     // this.props.navigation.setOptions({ title: name });
     return (
-      <View style={{ flex: 1, backgroundColor: color }}>
+      <View
+        style={{ flex: 1, backgroundColor: this.props.route.params.backColor }}
+      >
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
           isConnected={this.state.isConnected}
